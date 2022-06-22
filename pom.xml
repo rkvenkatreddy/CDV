@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.renault.super-poms.jboss6</groupId>
+		<artifactId>super-pom</artifactId>
+		<version>1.4</version>
+	</parent>
+
+    <groupId>renault-app.cdv</groupId>
+    <artifactId>cdv</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <name>MyApp Application</name>
+	<description>Multi Deliverables/Modules builder</description>
+
+	<!-- Here you put the properties you need in all your components (Config files, Resource files,... -->
+    <properties>
+	<sia>cdv</sia>
+	<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
+        <!-- override super-poms versions for maven-compiler-plugin since IODA does not have 1.8 yet -->
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+    </properties>
+
+	<!-- Here you declare the deliverables of the Application as modules -->
+
+    <dependencyManagement>
+        <dependencies>
+			<!-- This project makes use of Hibernate which is included into JBoss EAP 6+ -->
+            <dependency>
+  <groupId>org.jboss.bom</groupId>
+  <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+  <version>1.0.7.Final</version>
+  <type>pom</type>
+</dependency>
+        </dependencies>
+    </dependencyManagement>
+
+	<dependencies>
+	
+	
+	<!--  lara added the below jar  to solve the zip creation problem  -->
+<dependency>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-core</artifactId>
+  <version>2.15.0</version>
+</dependency>
+
+ <dependency>
+	<groupId>log4j</groupId>
+	<artifactId>log4j</artifactId>
+	<version>1.2.17</version>
+	<scope>provided</scope> 
+</dependency>
+     <!-- Import the EJB API, we use provided scope as the API is included in JBoss EAP 6 -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+		<dependency>  
+			<groupId>org.jboss.ejb3</groupId>  
+			<artifactId>jboss-ejb3-ext-api</artifactId>  
+ 			<version>2.0.0-beta-2</version>  
+			<scope>provided</scope>
+			
+		</dependency>
+		
+		<dependency>
+  <groupId>javax.servlet</groupId>
+  <artifactId>servlet-api</artifactId>
+  <version>2.5</version>
+  <scope>provided</scope>
+</dependency>
+
+
+<dependency>
+  <groupId>private.cdv</groupId>
+  <artifactId>F1j9</artifactId>
+  <version>1.0</version>
+</dependency>
+
+ <dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>3.13</version>
+</dependency>
+  <dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml-schemas</artifactId>
+    <version>3.13</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>3.13</version>
+</dependency>	
+  <dependency>
+   <groupId>org.apache.commons</groupId>
+   <artifactId>commons-collections4</artifactId>
+   <version>4.1</version>
+</dependency>
+		
+	</dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- The JBoss AS plugin deploys your ear to a local JBoss AS container -->
+                <!-- Due to Maven's lack of intelligence with EARs we need 
+                    to configure the jboss-as maven plugin to skip deployment for all modules. 
+                    We then enable it specifically in the ear module. -->
+                <plugin>
+                    <groupId>org.jboss.as.plugins</groupId>
+                    <artifactId>jboss-as-maven-plugin</artifactId>
+                    <version>7.1.1.Final</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+               </plugin> 
+				
+				<!--  <plugin>
+			<groupId>org.codehaus.mojo</groupId>
+  			<artifactId>jboss-maven-plugin</artifactId>
+  			<version>1.5.0</version>
+			<configuration>
+          	<jbossHome>D:/Public/z012928/jbdevstudio/runtimes/jboss-eap/standalone/deployments</jbossHome>
+          	<serverName>all</serverName>
+          	<fileName>D:/Public/cdv_maven_updated/cdv-app/cdv-ear/target/cdv.ear</fileName>
+        	</configuration> 
+        	<\plugin>-->
+			
+			
+			<!--  <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>7.7.Final</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <configuration>
+                            <deployEnabled>false</deployEnabled>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>  -->
+			
+			
+				<plugin>
+     				
+  					<groupId>org.apache.maven.plugins</groupId>
+  					<artifactId>maven-surefire-plugin</artifactId>
+  					<version>2.19.1</version>
+				<configuration>
+           
+      			</configuration>
+			</plugin>
+			
+            </plugins>
+        </pluginManagement>
+    </build>
+
+	<profiles>
+	 <!--<profile>
+        Use this profile for local Workstation deployment --> 
+	<!-- <profile>
+			 <id>Eclipse</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>target</name>
+					<value>LOCAL</value>
+				</property>
+			</activation>
+			<properties>
+				<mysql-driver>custom.mysql.default</mysql-driver>
+				<databaseUrl>mysql:${sia}devy01.mc2.renault.fr:3306/${sia}_db_01</databaseUrl>
+				<associatedUser>${sia}_adm</associatedUser>
+				<associatedPassWord>${sia}_adm_pwd</associatedPassWord>
+			</properties>
+		</profile>   -->
+		<!-- <profile>
+			<id>DEV</id>
+			<activation>
+				<property>
+					<name>target</name>
+					<value>DEV</value>
+				</property>
+			</activation>
+			<properties>
+				<mysql-driver>custom.oracle.default</mysql-driver>
+				
+				<databaseUrl>jdbc:oracle:thin:@${sia}devo01.mc2.renault.fr:1684/${sia}devo01</databaseUrl>
+				<associatedUser>${sia}_adm</associatedUser>
+				<associatedPassWord>${sia}_adm_pwd</associatedPassWord>
+				
+			</properties> 
+			
+		</profile>
+		
+			<profile>
+			<id>DEV1</id>
+			<activation>
+				<property>
+					<name>target</name>
+					<value>DEV1</value>
+				</property>
+			</activation>
+			<properties>
+				 <mysql-driver>custom.oracle.default</mysql-driver>
+				  Uncomment and fill below lines only when building without IODA 
+				
+				<databaseUrl>jdbc:oracle:thin:@${sia}devo01.mc2.renault.fr:1684/${sia}devo01</databaseUrl>
+				<associatedUser>${sia}_adm</associatedUser>
+				<associatedPassWord>${sia}_adm_pwd</associatedPassWord> 
+				
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>RE7</id>
+			<activation>
+				<property>
+					<name>target</name>
+					<value>RE7</value>
+				</property>
+			</activation>
+			<properties>
+				<mysql-driver>custom.oracle.default</mysql-driver>
+				Uncomment and fill below lines only when building without IODA 
+				
+				<databaseUrl>jdbc:oracle:thin:@${sia}re7o01.mc2.renault.fr:1684/${sia}re7o01
+				<associatedUser>${sia}_adm</associatedUser>
+				<associatedPassWord>${sia}_adm_pwd</associatedPassWord>
+				
+			</properties>
+		</profile>
+		<profile>
+			<id>OPE</id>
+			<activation>
+				<property>
+					<name>target</name>
+					<value>OPE</value>
+				</property>
+			</activation>
+			<properties>
+				<mysql-driver>custom.oracle.default</mysql-driver>
+				
+				<databaseUrl>jdbc:oracle:thin:@${sia}opeo01.mc2.renault.fr:1684/${sia}opeo01
+				<associatedUser>${sia}_adm</associatedUser>
+				<associatedPassWord>${sia}_adm_pwd</associatedPassWord>
+				
+			</properties>
+		</profile>  -->
+
+	</profiles>  
+<modules>
+    <module>../cdv-app</module>
+	<!--<module>../cdv-cnf</module> 
+	<module>../cdv-res</module>-->
+
+</modules>
+  
+	<distributionManagement>
+		 <repository>
+				<id>Release</id>
+				<name>Release</name>
+				<url>http://rnexus.intra.renault.fr/rnexus/content/repositories/releases/</url>
+		 </repository>
+		 <snapshotRepository>
+				 <id>Snapshot</id>
+				 <name>Snapshot</name>
+				 <url>http://rnexus.intra.renault.fr/rnexus/content/repositories/snapshots/</url>
+		 </snapshotRepository>
+	</distributionManagement>  
+</project>

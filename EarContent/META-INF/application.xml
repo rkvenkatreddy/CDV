@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd" version="6">
+  <display-name>cdv</display-name>
+  <module>
+    <web>
+      <web-uri>cdvWeb.war</web-uri>
+      <context-root>/cdv</context-root>
+    </web>
+  </module>
+  <module>
+    <ejb>cdvEJB.jar</ejb>
+  </module>
+  <module>
+    <web>
+      <web-uri>cdvdetour.war</web-uri>
+      <context-root>cdvdetour</context-root>
+    </web>
+  </module>
+</application>

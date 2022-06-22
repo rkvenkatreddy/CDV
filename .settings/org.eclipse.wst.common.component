@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="cdv">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="cdvEJB.jar" deploy-path="/" handle="module:/resource/cdvEJB/cdvEJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cdvWeb.war" deploy-path="/" handle="module:/resource/cdvWeb/cdvWeb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cdvCommon.jar" deploy-path="/lib" handle="module:/resource/cdvCommon/cdvCommon">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cdvDevelopment.jar" deploy-path="/lib" handle="module:/resource/cdvDevelopment/cdvDevelopment">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cdvdetour.war" deploy-path="/" handle="module:/resource/cdvdetour/cdvdetour">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
